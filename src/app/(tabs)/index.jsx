@@ -1,31 +1,23 @@
 import { auth } from '@/src/core/config/firebase';
+import { useAuth } from '@/src/core/context/AuthProvider';
+import { useRouter } from 'expo-router';
 import { signOut } from 'firebase/auth';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 
 export default function HomeScreen() {
+    const { user } = useAuth();
+    const router = useRouter();
 
     const handleSignOut = async () => {
         try {
             await signOut(auth);
-            
-            console.log("Signed out");
+            router.replace('/(auth)')
         } catch (error){
             console.log(error);
         }
     };
     
     return (
-        <View>
-            <Text>Home Screen</Text>
-
-            <Pressable onPress={handleSignOut}>
-                <Text>Sign out</Text>
-            </Pressable>
-        </View>
+        <HomeScreen handleSignOut = {handleSignOut}/>
     );
 }
-
-const styles = StyleSheet.create({
-  
-});
