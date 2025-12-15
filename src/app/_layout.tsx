@@ -1,9 +1,9 @@
 import { AuthProvider, useAuth } from '@/src/core/context/AuthProvider';
 import { logIn } from "@/src/core/firebaseAuthUtils";
-import { Redirect, Stack } from 'expo-router';
+import { Redirect, SplashScreen, Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 function RootNavLayout() {
     const { user, isLoading } = useAuth();
@@ -15,11 +15,11 @@ function RootNavLayout() {
         logIn("testemail2003@example.com", "Password@123");
     }, [])
 
-    // useEffect(()=>{
-    //     if(!isLoading){
-    //         SplashScreen.hideAsync();
-    //     }        
-    // }, [isLoading]);
+    useEffect(()=>{
+        if(!isLoading){
+            SplashScreen.hideAsync();
+        }        
+    }, [isLoading]);
 
     console.log("User: ", user);
     console.log("Loading: ", isLoading);
